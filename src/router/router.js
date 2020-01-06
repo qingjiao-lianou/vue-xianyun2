@@ -4,7 +4,7 @@ import Home from '@/views/home.vue'
 import Air from '@/views/air/index.vue'
 import Hotel from '@/views/hotel/index.vue'
 import Post from '@/views/post/index.vue'
-import User from '@/views/user/index.vue'
+import Login from '@/views/user/login.vue'
 
 Vue.use(VueRouter)
 
@@ -31,9 +31,9 @@ export default new VueRouter({
             component: Post
         },
         {
-            name: 'user',
-            path: '/user',
-            component: User
+            name: 'login',
+            path: '/login',
+            component: Login
         },
     ]
 })

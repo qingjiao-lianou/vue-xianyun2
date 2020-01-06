@@ -19,7 +19,7 @@
       <!-- 登录/用户信息 -->
       <el-row type="flex" align="middle">
     
-        <router-link to="/user/login" class="account-link">登录 / 注册</router-link>
+        <router-link to="/login" class="account-link">登录 / 注册</router-link>
       </el-row>
     </el-row>
   </div>
