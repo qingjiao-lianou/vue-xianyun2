@@ -64,6 +64,8 @@ export default {
     };
   },
   mounted() {
+    console.log(this.$store.state);
+    
     // 获取轮播图数据
     this.$axios({ url: "/scenics/banners" }).then(res => {
       this.banners = res.data.data;
