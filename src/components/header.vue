@@ -18,27 +18,8 @@
 
       <!-- 登录/用户信息 -->
       <el-row type="flex" align="middle">
-        <!-- 如果用户存在则展示用户信息，用户数据来自store -->
-        <el-dropdown v-if="false">
-          <el-row type="flex" align="middle" class="el-dropdown-link">
-            <router-link to="#">
-              <img src="http://157.122.54.189:9093/images/pic_sea.jpeg" />
-              用户名
-            </router-link>
-            <i class="el-icon-caret-bottom el-icon--right"></i>
-          </el-row>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>
-              <router-link to="#">个人中心</router-link>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <div>退出</div>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-
-        <!-- 不存在用户信息展示登录注册链接 -->
-        <router-link to="/user/login" class="account-link" v-else>登录 / 注册</router-link>
+    
+        <router-link to="/user/login" class="account-link">登录 / 注册</router-link>
       </el-row>
     </el-row>
   </div>
