@@ -17,7 +17,7 @@
         <LoginForm v-if="current == 0"/>
 
         <!-- 注册功能组件 -->
-        <!-- <RegisterForm v-if="currentTab == 1"/> -->
+        <RegisterForm v-if="current == 1"/>
       </div>
     </el-row>
   </div>
@@ -25,11 +25,12 @@
 
 <script>
 import LoginForm from '@/components/user/loginForm'
+import RegisterForm from '@/components/user/register'
 export default {
   data() {
     return {
       // 当前索引
-      current: 0
+      current: 1
     };
   },
   methods: {
@@ -39,7 +40,7 @@ export default {
   },
 // 注册组件
 components:{
-  LoginForm
+  LoginForm,RegisterForm
 }
 };
 </script>
