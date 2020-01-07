@@ -46,6 +46,7 @@ export default {
              data:this.form
          }).then(res => {
              console.log(res);
+            //  把用户数据存到vuex
              this.$store.commit('setUserInfo',res.data)
          })
         } else {

@@ -32,7 +32,7 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item>退出</el-dropdown-item>
+            <el-dropdown-item @click.native="handleOut">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -41,7 +41,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods:{
+    // 退出登录状态
+    handleOut(){
+       this.$store.commit('setUserInfo','') //传空字符串
+        this.$message.success('退出成功');
+    }
+  }
+};
 </script>
 
 <style lang="less" scoped>
