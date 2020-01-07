@@ -65,9 +65,9 @@ export default {
   methods: {
     // 发送验证码
     async handleSendCaptcha() {
-      if (this.form.username === '') {
+      if (this.form.username === "") {
         this.$message.error("请输入手机号");
-        return
+        return;
       }
 
       const res = await this.$axios({
@@ -77,12 +77,34 @@ export default {
           tel: this.form.username
         }
       });
-      this.$alert(`模拟验证码是:${res.data.code}`,'提示');
+      this.$alert(`模拟验证码是:${res.data.code}`, "提示");
     },
 
     // 注册
     handleRegSubmit() {
-      console.log(this.form);
+      // console.log(this.form);
+
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          this.$axios({
+            url: "/accounts/register",
+            method: "post",
+            data: {
+              username: this.form.username,
+              nickname: this.form.nickname,
+              captcha: this.form.captcha,
+              password: this.form.password
+            }
+          }).then(res => {
+            // console.log(res);
+            // 注册成功后直接登录
+            this.$store.commit("setUserInfo", res.data);
+            this.$message.success("注册成功");
+          });
+        } else {
+          return false;
+        }
+      });
     }
   }
 };
