@@ -5,10 +5,15 @@ Vue.use(Vuex)
 
 
 export default new Vuex.Store({
-    state:{
-        userInfo:{
-            token:'1111',
-            user:{}
+    // 存储仓库数据
+    state: {
+        userInfo: {}
+    },
+
+    // 修改仓库数据
+    mutations: {
+        setUserInfo(state, data) {
+            state.userInfo = data
         }
     }
 })

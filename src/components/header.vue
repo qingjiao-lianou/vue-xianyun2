@@ -17,10 +17,25 @@
       </el-row>
 
       <!-- 登录/用户信息 -->
-      <el-row type="flex" align="middle">
-    
-        <router-link to="/login" class="account-link">登录 / 注册</router-link>
-      </el-row>
+
+      <router-link v-if="!$store.state.userInfo.token" to="/login" class="account-link">登录 / 注册</router-link>
+      <div v-else>
+        <img
+          class="img1"
+          :src="`${$axios.defaults.baseURL}${$store.state.userInfo.user.defaultAvatar}`"
+          alt
+        />
+        <el-dropdown>
+          <span class="el-dropdown-link">
+            {{$store.state.userInfo.user.nickname}}
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>个人中心</el-dropdown-item>
+            <el-dropdown-item>退出</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </el-row>
   </div>
 </template>
@@ -88,24 +103,10 @@ export default {};
   }
 
   .el-dropdown-link {
-    margin-left: 20px;
-
-    &:hover {
-      img {
-        border-color: #409eff;
-      }
-    }
+    margin-left: 5px;
 
     a {
       display: block;
-    }
-
-    img {
-      width: 32px;
-      height: 32px;
-      vertical-align: middle;
-      border: 2px #fff solid;
-      border-radius: 50px;
     }
   }
 
@@ -118,6 +119,17 @@ export default {};
       color: #409eff;
       text-decoration: underline;
     }
+  }
+}
+
+.img1 {
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+  border: 2px #fff solid;
+  border-radius: 50px;
+  &:hover {
+    border-color: #409eff;
   }
 }
 </style>

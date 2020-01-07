@@ -46,7 +46,7 @@ export default {
              data:this.form
          }).then(res => {
              console.log(res);
-             
+             this.$store.commit('setUserInfo',res.data)
          })
         } else {
           return false;
