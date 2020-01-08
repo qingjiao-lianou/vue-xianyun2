@@ -45,7 +45,7 @@
       <div class="air-sale">
         <el-row type="flex" class="air-sale-pic" justify="space-between">
           <el-col :span="6" v-for="(item, index) in sales" :key="index">
-            <nuxt-link
+            <router-link
               :to="`/air/flights?departCity=${item.departCity}&departCode=${item.departCode}&destCity=${item.destCity}&destCode=${item.destCode}&departDate=${item.departDate}`"
             >
               <img :src="item.cover" />
@@ -53,7 +53,7 @@
                 <span>{{item.departCity}}-{{item.destCity}}</span>
                 <span>￥699</span>
               </el-row>
-            </nuxt-link>
+            </router-link>
           </el-col>
         </el-row>
       </div>

@@ -23,6 +23,7 @@
           @select="handleDepartSelect"
           class="el-autocomplete"
           v-model="form.departCity"
+          @blur="departCityBlur"
         ></el-autocomplete>
       </el-form-item>
       <el-form-item label="到达城市">
@@ -32,6 +33,7 @@
           @select="handleDestSelect"
           class="el-autocomplete"
           v-model="form.destCity"
+          @blur="destCityBlur"
         ></el-autocomplete>
       </el-form-item>
       <el-form-item label="出发时间">
@@ -70,7 +72,9 @@ export default {
         destCity: "",
         destCode: "",
         departDate: ""
-      }
+      },
+      departCityData: [],
+      destCityData: []
     };
   },
   methods: {
@@ -79,6 +83,35 @@ export default {
       if (index === 1) {
         this.$alert("暂不支持该功能", "提示");
       }
+    },
+
+    // 出发城市失焦事件
+    departCityBlur() {
+      if (!this.form.departCity) {
+        this.departCityData = [];
+      }
+
+      // 默认选中第一个
+      this.form.departCity = this.departCityData[0]
+        ? this.departCityData[0].value
+        : "";
+      this.form.departCode = this.departCityData[0]
+        ? this.departCityData[0].sort
+        : "";
+    },
+
+    // 到达城市失焦事件
+    destCityBlur() {
+       if (!this.form.destCity) {
+        this.destCityData = [];
+      }
+      // 默认选中第一个
+      this.form.destCity = this.destCityData[0]
+        ? this.destCityData[0].value
+        : "";
+      this.form.destCode = this.destCityData[0]
+        ? this.destCityData[0].sort
+        : "";
     },
 
     // 出发城市输入框获得焦点时触发
@@ -102,11 +135,9 @@ export default {
           v.value = v.name.replace("市", "");
           arr.push(v);
         });
-        // 默认选中第一个
-        this.form.departCity = arr[0].value;
-        this.form.departCode = arr[0].sort;
         // 显示到下拉列表
         cb(arr);
+        this.departCityData = arr;
       });
     },
 
@@ -131,11 +162,9 @@ export default {
           v.value = v.name.replace("市", "");
           arr.push(v);
         });
-        // 默认选中第一个
-        this.form.destCity = arr[0].value;
-        this.form.destCode = arr[0].sort;
         // 显示到下拉列表
         cb(arr);
+        this.destCityData = arr;
       });
     },
 
@@ -185,7 +214,7 @@ export default {
       }
 
       this.$router.push({
-        path: "air/flights",
+        name: 'flights',
         query: this.form
       });
     }
