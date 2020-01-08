@@ -100,6 +100,7 @@ export default {
             // 注册成功后直接登录
             this.$store.commit("setUserInfo", res.data);
             this.$message.success("注册成功");
+            this.$router.push({ name: 'home'})
           });
         } else {
           return false;
