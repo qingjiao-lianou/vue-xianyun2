@@ -19,7 +19,7 @@ export default new VueRouter({
         {
             name: 'air',
             path: '/air',
-            component: Air
+            component: Air,
         },
         {
             name: 'hotel',
@@ -38,9 +38,9 @@ export default new VueRouter({
         },
         {
             name: 'flights',
-            path: 'air/flights',
+            path: '/air/flights',
             component: Flights
-        },
         
+        }
     ]
 })
