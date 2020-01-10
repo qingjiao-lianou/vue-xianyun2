@@ -64,6 +64,21 @@ export default {
     flightsFilters,
     FlightsAside
   },
+  // 监听路由变化
+  watch: {
+    $route() {
+      this.$axios({
+        url: "/airs",
+        params: this.$route.query
+      }).then(res => {
+        console.log(res);
+        this.flightsData = res.data;
+        this.copyFlightsData = { ...res.data };
+        this.total = this.flightsData.total;
+        this.flightsList = this.flightsData.flights.slice(0, this.pageSize);
+      });
+    }
+  },
   mounted() {
     this.$axios({
       url: "/airs",

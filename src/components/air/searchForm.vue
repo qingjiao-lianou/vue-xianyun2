@@ -102,7 +102,7 @@ export default {
 
     // 到达城市失焦事件
     destCityBlur() {
-       if (!this.form.destCity) {
+      if (!this.form.destCity) {
         this.destCityData = [];
       }
       // 默认选中第一个
@@ -212,9 +212,13 @@ export default {
         this.$alert("请选择日期", "提示");
         return;
       }
-
+      // 将历史信息存储到本地
+      const arr = JSON.parse(localStorage.getItem("air")) || [];
+      arr.push(this.form);
+      localStorage.setItem("air", JSON.stringify(arr));
+      // 跳转
       this.$router.push({
-        name: 'flights',
+        name: "flights",
         query: this.form
       });
     }
