@@ -6,6 +6,7 @@ import Hotel from '@/views/hotel/index.vue'
 import Post from '@/views/post/index.vue'
 import Login from '@/views/user/login.vue'
 import Flights from '@/views/air/flights.vue'
+import Order from '@/views/air/order.vue'
 
 Vue.use(VueRouter)
 
@@ -40,7 +41,11 @@ export default new VueRouter({
             name: 'flights',
             path: '/air/flights',
             component: Flights
-        
-        }
+        },
+        {
+            name: 'order',
+            path: '/air/order',
+            component:Order
+        },
     ]
 })

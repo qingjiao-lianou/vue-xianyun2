@@ -30,16 +30,23 @@
     </div>
     <div class="flight-recommend" v-show="isShow">
       <!-- 隐藏的座位信息列表 -->
-      <el-row type="flex" justify="space-between" align="middle" v-for="(item,index) in data.seat_infos" :key="index">
+      <el-row
+        type="flex"
+        justify="space-between"
+        align="middle"
+        v-for="(item,index) in data.seat_infos"
+        :key="index"
+      >
         <el-col :span="4">低价推荐</el-col>
         <el-col :span="20">
           <el-row type="flex" justify="space-between" align="middle" class="flight-sell">
             <el-col :span="16" class="flight-sell-left">
-              <span>{{item.name}}</span> | {{item.supplierName}}
+              <span>{{item.name}}</span>
+              | {{item.supplierName}}
             </el-col>
             <el-col :span="5" class="price">￥{{item.org_settle_price}}</el-col>
             <el-col :span="3" class="choose-button">
-              <el-button type="warning" size="mini">选定</el-button>
+              <el-button type="warning" size="mini" @click="handleClick(item.seat_xid)">选定</el-button>
               <p>剩余：{{item.discount}}</p>
             </el-col>
           </el-row>
@@ -51,11 +58,11 @@
 
 <script>
 export default {
-    data(){
-        return {
-            isShow:false
-        }
-    },
+  data() {
+    return {
+      isShow: false
+    };
+  },
   props: {
     // 数据
     data: {
@@ -88,6 +95,17 @@ export default {
       const min = dis % 60;
 
       return `${hours}时${min}分`;
+    }
+  },
+  methods: {
+    handleClick(seat_xid) {
+      this.$router.push({
+        name: 'order',
+        query:{
+          id:this.data.id,
+          seat_xid
+        }
+      })
     }
   }
 };
