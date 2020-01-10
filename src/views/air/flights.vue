@@ -4,7 +4,7 @@
       <!-- 顶部过滤列表 -->
       <div class="flights-content">
         <!-- 过滤条件 -->
-        <flightsFilters :data="flightsData" />
+        <flightsFilters :data="copyFlightsData" @setFlightsList="setFlightsList" />
 
         <!-- 航班头部布局 -->
         <FlightsListHead />
@@ -41,7 +41,11 @@ export default {
       // 机票数据
       flightsData: {
         info: {},
-        options:{}
+        options: {}
+      },
+      copyFlightsData: {
+        info: {},
+        options: {}
       },
       //   渲染的机票列表
       flightsList: [],
@@ -65,6 +69,7 @@ export default {
     }).then(res => {
       console.log(res);
       this.flightsData = res.data;
+      this.copyFlightsData = { ...res.data };
       this.total = this.flightsData.total;
       this.flightsList = this.flightsData.flights.slice(0, this.pageSize);
     });
@@ -82,6 +87,15 @@ export default {
         (this.currentPage - 1) * this.pageSize,
         this.pageSize * this.currentPage
       );
+    },
+    setFlightsList(arr) {
+      this.flightsData.flights = arr;
+      this.currentPage = 1;
+      this.flightsList = this.flightsData.flights.slice(
+        (this.currentPage - 1) * this.pageSize,
+        this.pageSize * this.currentPage
+      );
+      this.total = arr.length;
     }
   }
 };
