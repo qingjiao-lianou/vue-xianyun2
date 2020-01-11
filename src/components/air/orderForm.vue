@@ -45,11 +45,11 @@
       <div class="contact">
         <el-form label-width="60px">
           <el-form-item label="姓名">
-            <el-input></el-input>
+            <el-input v-model="contactName"></el-input>
           </el-form-item>
 
           <el-form-item label="手机">
-            <el-input placeholder="请输入内容">
+            <el-input placeholder="请输入内容" v-model="contactPhone">
               <template slot="append">
                 <el-button @click="handleSendCaptcha">发送验证码</el-button>
               </template>
@@ -57,7 +57,7 @@
           </el-form-item>
 
           <el-form-item label="验证码">
-            <el-input></el-input>
+            <el-input v-model="captcha"></el-input>
           </el-form-item>
         </el-form>
         <el-button type="warning" class="submit" @click="handleSubmit">提交订单</el-button>
@@ -70,12 +70,15 @@
 export default {
   data() {
     return {
-      // 用户数据
-      users: [{ username: "", id: "" }],
-      //   保险id
-      insurances: [],
-      //   机票信息
-      airInfo: {}
+      users: [{ username: "", id: "" }], // 用户数据
+      insurances: [], //   保险id
+      contactName: "", //联系人名字
+      contactPhone: "", //联系人电话
+      invoice: false, //是否需要发票
+      captcha: "", //验证码
+      seat_xid: "", //座位id
+      air: "", //航班id
+      airInfo: {} //   机票信息
     };
   },
   mounted() {
@@ -113,11 +116,45 @@ export default {
     },
 
     // 发送手机验证码
-    handleSendCaptcha() {},
+    async handleSendCaptcha() {
+      if (this.contactPhone === "") {
+        this.$message.error("请输入手机号");
+        return;
+      }
+
+      const res = await this.$axios({
+        url: "/captchas",
+        method: "POST",
+        data: {
+          tel: this.contactPhone
+        }
+      });
+      this.$alert(`模拟验证码是:${res.data.code}`, "提示");
+    },
 
     // 提交订单
     handleSubmit() {
-      console.log(this.users);
+      const data = {
+        users: this.users,
+        insurances: this.insurances,
+        contactName: this.contactName,
+        contactPhone: this.contactPhone,
+        air: this.$route.query.id,
+        seat_xid: this.$route.query.seat_xid,
+        captcha: this.captcha,
+        invoice: this.invoice
+      };
+      this.$axios({
+          url:"/airorders",
+          method:"post",
+          headers:{
+Authorization:`Bearer ${this.$store.state.userInfo.token}`
+          },
+          data
+      }).then(res => {
+          console.log(res);
+          
+      })
     }
   }
 };
