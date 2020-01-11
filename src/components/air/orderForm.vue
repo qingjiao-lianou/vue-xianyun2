@@ -144,17 +144,38 @@ export default {
         captcha: this.captcha,
         invoice: this.invoice
       };
+      // 验证乘机人
+      if (!this.users[0].username || !this.users[0].id) {
+        this.$message.error("乘机人不能为空");
+        return;
+      }
+      // 验证联系人
+      if (!this.contactName) {
+        this.$message.error("联系人不能为空");
+        return;
+      }
+      // 手机号不能为空
+      if (!this.contactPhone) {
+        this.$message.error("手机号不能为空");
+        return;
+      }
+      // 验证验证码
+      if (!this.captcha) {
+        this.$message.error("验证码不能为空");
+        return;
+      }
+
       this.$axios({
-          url:"/airorders",
-          method:"post",
-          headers:{
-Authorization:`Bearer ${this.$store.state.userInfo.token}`
-          },
-          data
+        url: "/airorders",
+        method: "post",
+        headers: {
+          Authorization: `Bearer ${this.$store.state.userInfo.token}`
+        },
+        data
       }).then(res => {
-          console.log(res);
-          
-      })
+        console.log(res);
+        this.$message.success("提交成功");
+      });
     }
   }
 };
