@@ -3,7 +3,7 @@
     <div class="air-column">
       <h2>乘机人</h2>
       <el-form class="member-info">
-        <div class="member-info-item"  v-for="(item,index) in users" :key="index">
+        <div class="member-info-item" v-for="(item,index) in users" :key="index">
           <el-form-item label="乘机人类型">
             <el-input placeholder="姓名" class="input-with-select" v-model="users[index].username">
               <el-select slot="prepend" value="1" placeholder="请选择">
@@ -30,8 +30,12 @@
     <div class="air-column">
       <h2>保险</h2>
       <div>
-        <div class="insurance-item">
-          <el-checkbox label="航空意外险：￥30/份×1  最高赔付260万" border></el-checkbox>
+        <div class="insurance-item" v-for="(item,index) in airInfo.insurances" :key="index">
+          <el-checkbox
+            :label="`${item.type}：￥${item.price}/份×1  最高赔付${item.compensation}`"
+            border
+            @change="handleChange(item.id)"
+          ></el-checkbox>
         </div>
       </div>
     </div>
@@ -66,8 +70,26 @@
 export default {
   data() {
     return {
-      users: [{ username: "", id: "" }]
+      // 用户数据
+      users: [{ username: "", id: "" }],
+      //   保险id
+      insurances: [],
+      //   机票信息
+      airInfo: {}
     };
+  },
+  mounted() {
+    const { id, seat_xid } = this.$route.query;
+    //   获取保险数据
+    this.$axios({
+      url: `/airs/${id}`,
+      params: {
+        seat_xid
+      }
+    }).then(res => {
+      console.log(res);
+      this.airInfo = res.data;
+    });
   },
   methods: {
     // 添加乘机人
@@ -77,7 +99,17 @@ export default {
 
     // 移除乘机人
     handleDeleteUser(index) {
-        this.users.splice(index,1)
+      this.users.splice(index, 1);
+    },
+
+    // 获取保险id
+    handleChange(id) {
+      const index = this.insurances.indexOf(id);
+      if (index > -1) {
+        this.insurances.splice(index, 1);
+      } else {
+        this.insurances.push(id);
+      }
     },
 
     // 发送手机验证码
