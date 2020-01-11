@@ -92,6 +92,7 @@ export default {
     }).then(res => {
       console.log(res);
       this.airInfo = res.data;
+      this.$store.commit("setAirInfo", this.airInfo);
     });
   },
   methods: {

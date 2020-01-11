@@ -2,21 +2,23 @@
   <div class="container">
     <el-row type="flex" justify="space-between">
       <!-- 订单表单 -->
-      <OrderForm/>
+      <OrderForm />
 
       <!-- 侧边栏 -->
-      <div class="aside"></div>
+      <OrderAside :data="this.$store.state.airInfo"/>
     </el-row>
   </div>
 </template>
 
 <script>
 import OrderForm from "@/components/air/orderForm.vue";
+import OrderAside from "@/components/air/orderAside.vue";
 
 export default {
-      components: {
-        OrderForm
-    }
+  components: {
+    OrderForm,
+    OrderAside
+  }
 };
 </script>
 
