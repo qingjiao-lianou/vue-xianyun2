@@ -49,7 +49,8 @@ export default {
             //  把用户数据存到vuex
              this.$store.commit('setUserInfo',res.data)
              this.$message.success('登录成功')
-             this.$router.push({ name: 'home'})
+            //  this.$router.push({ name: 'home'})
+             this.$router.back()
          })
         } else {
           return false;
