@@ -63,6 +63,7 @@
         <el-button type="warning" class="submit" @click="handleSubmit">提交订单</el-button>
       </div>
     </div>
+    <span v-show="false">{{allPrice}}</span>
   </div>
 </template>
 
@@ -177,6 +178,21 @@ export default {
         console.log(res);
         this.$message.success("提交成功");
       });
+    }
+  },
+  computed: {
+    //   计算总价格
+    allPrice() {
+        if(!this.airInfo.seat_infos){
+            return 0
+        }
+      let price = 0;
+      price += this.airInfo.seat_infos.org_settle_price; // 机票单价
+      price += this.airInfo.airport_tax_audlet; // 燃油费
+      price += 30 * this.insurances.length; // 保险费
+      price *= this.users.length; // 人数总价
+      this.$store.commit('setAllPrice',price)
+      return price;
     }
   }
 };
