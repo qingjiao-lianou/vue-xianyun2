@@ -13,7 +13,6 @@ axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     // 对响应错误做点什么
-    console.log(router);
 
     const { statusCode, message } = error.response.data
     if (statusCode === 400) {

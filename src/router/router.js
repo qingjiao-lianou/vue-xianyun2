@@ -7,6 +7,7 @@ import Post from '@/views/post/index.vue'
 import Login from '@/views/user/login.vue'
 import Flights from '@/views/air/flights.vue'
 import Order from '@/views/air/order.vue'
+import Pay from '@/views/air/pay.vue'
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,11 @@ export default new VueRouter({
             name: 'order',
             path: '/air/order',
             component:Order
+        },
+        {
+            name: 'pay',
+            path: '/air/pay',
+            component:Pay
         },
     ]
 })
