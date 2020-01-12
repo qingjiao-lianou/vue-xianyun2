@@ -24,8 +24,9 @@
 </template>
 
 <script>
+import QRCode from "qrcode";
 export default {
-    // 请求订单详情
+  // 请求订单详情
   mounted() {
     // console.log(this.$store.state.userInfo.token);
 
@@ -36,6 +37,14 @@ export default {
       }
     }).then(res => {
       console.log(res);
+      // 获取canvas元素
+      const canvas = document.getElementById("qrcode-stage");
+      // 二维码链接
+      const {code_url} = res.data.payInfo
+
+      QRCode.toCanvas(canvas,code_url,{
+          width:200
+      })
     });
   }
 };
